@@ -1,21 +1,21 @@
-import mongoose from "mongoose";
-const app = require("./app.js");
-//import app from "./app.js";
+
+
 //LKOFtbNWMdrUaJv6
 
-const DB_HOST = "mongodb+srv://Vasylysa:LKOFtbNWMdrUaJv6@cluster0.xqqnczp.mongodb.net/my-contacts?retryWrites=true&w=majority";
+  const mongoose = require("mongoose");
 
-console.log(process.env);
-
-mongoose.connect(DB_HOST)
-  .then(() => {
-    app.listen(3000, () => {
-      console.log("Server running. Use our API on port: 3000");
+  const app = require("./app");
+  const { DB_HOST, PORT = 3000 } = process.env;
+  
+  mongoose
+    .connect(DB_HOST)
+    .then(() => {
+      console.log("Database connection successful");
+      app.listen(PORT, () => {
+        console.log(`Server running. Use our API on port: ${PORT}`);
+      });
     })
-  })
-  .catch(error => {
-    console.log(error.message);
-    process.exit(1);
-  })
-
-
+    .catch((error) => {
+      console.log(error.message);
+      process.exit(1);
+    });
