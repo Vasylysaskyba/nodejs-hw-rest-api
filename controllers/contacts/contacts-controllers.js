@@ -17,10 +17,10 @@ const getAll = async (req, res) => {
  // res.json(result);
 //};
 
-//const add = async (req, res) => {
-  //const result = await contactsService.addContact(req.body);
- // res.status(201).json(result);
-//};
+const add = async (req, res) => {
+  const result = await Contact.create(req.body);
+ res.status(201).json(result);
+};
 
 //const updateById = async (req, res) => {
   //console.log("req:", req.body);
