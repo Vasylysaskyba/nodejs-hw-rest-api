@@ -1,10 +1,10 @@
-const HttpError = require("../helpers/HttpError.js");
+import { HttpError } from "../helpers/index.js";
 
-const isEmptyBody = (req, res, next) => {
-  if (!Object.keys(req.body).length) {
-    return next(HttpError(400, "missing fields"));
-  }
-  next();
-};
+const isEmptyBody = (req, res, next)=> {
+    if (!Object.keys(req.body).length) {
+        return next(HttpError(400, "All fields empty"));
+    }
+    next();
+}
 
-module.exports = isEmptyBody;
+export default isEmptyBody;
