@@ -1,32 +1,31 @@
-import {Schema, model} from "mongoose";
+import { Schema, model } from "mongoose";
 import Joi from "joi";
 
 import { handleSaveError, runValidatorsAtUpdate } from "./hooks.js";
 
 
 const contactSchema = new Schema({
-    name: {
-        type: String,
-        required: [true, "Set name for contact"],
-      },
-      email: {
-        type: String,
-      },
-      phone: {
-        type: String,
-      },
-    favorite: {
-        type: Boolean,
-        default: false,
-    },
-    
+  name: {
+    type: String,
+    required: [true, "Set name for contact"],
+  },
+  email: {
+    type: String,
+  },
+  phone: {
+    type: String,
+  },
+  favorite: {
+    type: Boolean,
+    default: false,
+  },
 
-    owner: {
-        type: Schema.Types.ObjectId,
-        ref: "user",
-        required: true,
-    }
-}, {versionKey: false, timestamps: true})
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "user",
+    required: true,
+  }
+}, { versionKey: false, timestamps: true })
 
 contactSchema.post("save", handleSaveError);
 
@@ -35,25 +34,25 @@ contactSchema.pre("findOneAndUpdate", runValidatorsAtUpdate);
 contactSchema.post("findOneAndUpdate", handleSaveError);
 
 export const contactAddSchema = Joi.object({
-    name: Joi.string().required().messages({
-        "any.required": `"name" is required`,
-        "string.empty": `"name" cannot be empty`,
-        "string.base": `"name" must be string`,
-      }),
-      email: Joi.string().required().messages({
-        "any.required": `"email" is required`,
-        "string.empty": `"email" cannot be empty`,
-      }),
-      phone: Joi.string().required().messages({
-        "any.required": `"phone" is required`,
-        "string.empty": `"phone" cannot be empty`,
-      }),
-    favorite: Joi.boolean(),
-    
+  name: Joi.string().required().messages({
+    "any.required": `"name" is required`,
+    "string.empty": `"name" cannot be empty`,
+    "string.base": `"name" must be string`,
+  }),
+  email: Joi.string().required().messages({
+    "any.required": `"email" is required`,
+    "string.empty": `"email" cannot be empty`,
+  }),
+  phone: Joi.string().required().messages({
+    "any.required": `"phone" is required`,
+    "string.empty": `"phone" cannot be empty`,
+  }),
+  favorite: Joi.boolean(),
+
 })
 
 export const contactUpdateFavoriteSchema = Joi.object({
-    favorite: Joi.boolean().required(),
+  favorite: Joi.boolean().required(),
 })
 
 const Contact = model("contact", contactSchema);

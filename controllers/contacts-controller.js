@@ -1,8 +1,14 @@
+import fs from "fs/promises";
+
+import path from "path";
+
 import Contact from "../models/Contact.js";
 
 import { HttpError } from "../helpers/index.js";
 
 import { ctrlWrapper } from "../decorators/index.js";
+
+const avatarsPath = path.resolve("public", "avatars");
 
 const getAll = async (req, res) => {
     const { _id: owner } = req.user;
@@ -24,11 +30,9 @@ const getById = async (req, res) => {
 
 const add = async (req, res) => {
     const { _id: owner } = req.user;
-    console.log(req.body);
-    console.log(req.file);
-   // const result = await Contact.create({ ...req.body, owner });
-   // res.status(201).json(result);
-}
+    const result = await Contact.create({ ...req.body, owner });
+    res.status(201).json(result);
+  };
 
 const updateById = async (req, res) => {
     const { id } = req.params;

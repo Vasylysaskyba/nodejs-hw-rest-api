@@ -19,7 +19,7 @@ contactsRouter.get("/", contactsController.getAll);
 
 contactsRouter.get("/:id", isValidId, contactsController.getById);
 
-contactsRouter.post("/", upload.single("poster"), isEmptyBody, contactAddValidate, contactsController.add);
+contactsRouter.post("/", upload.single("avatarURL"), isEmptyBody, contactAddValidate, contactsController.add);
 
 contactsRouter.put("/:id", isValidId, isEmptyBody, contactAddValidate, contactsController.updateById);
 

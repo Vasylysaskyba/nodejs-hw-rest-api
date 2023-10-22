@@ -1,7 +1,7 @@
 import multer from "multer";
 import path from "path";
 
-const destination = path.resolve("temp");
+const destination = path.resolve("tmp");
 const storage = multer.diskStorage({
     destination,
     filename: (req, file, cb) => {
@@ -16,7 +16,7 @@ const limits = {
     fileSize: 5 * 1024 * 1024
 }
 
-const fileFilter = (req, res, cb) => {
+const fileFilter = (req, file, cb) => {
     if (file.originalname.split(".").pop() === "exe") {
         cb(new Error("File extention not allow"));
     }
