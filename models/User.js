@@ -23,6 +23,13 @@ const userSchema = new Schema(
       minlength: 6,
       required: [true, "Set password for user"],
     },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+  },
     subscription: {
       type: String,
       enum: subscriptionList,
@@ -31,6 +38,7 @@ const userSchema = new Schema(
     token: String,
     avatarURL: String,
   },
+  
   { versionKey: false, timestamps: true }
 );
 
@@ -51,6 +59,11 @@ export const userSigninSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
   subscription: Joi.string().valid(...subscriptionList),
+});
+
+export const userEmailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(),
+ 
 });
 
 export const userUpdateSubscriptionSchema = Joi.object({
